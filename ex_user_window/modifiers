@@ -1,0 +1,170 @@
+## { "group": "head"
+#head/head-angle-in|out
+#head/head-skinny|fat
+#head/head-oval
+#head/head-round
+#head/head-rectangular
+#head/head-square
+#head/head-triangular
+#head/head-invertedtriangular
+#head/head-diamond
+#
+#head/head-scale-depth-less|more
+#head/head-scale-horiz-less|more
+#head/head-scale-vert-more|less
+#head/head-trans-in|out
+#head/head-trans-down|up
+#head/head-trans-forward|backward
+##  }
+#
+## { "group": "forehead"
+#forehead/forehead-trans-depth-forward|backward
+#forehead/forehead-scale-vert-less|more
+#forehead/forehead-nubian-less|more
+#forehead/forehead-temple-in|out
+##  }
+#
+##  { "group": "eyebrows",
+##eyebrows/eyebrows-trans-depth-less|more
+##eyebrows/eyebrows-angle-up|down
+##eyebrows/eyebrows-trans-vert-less|more
+##  }
+#
+##  { "group": "neck",
+#neck/neck-scale-depth-less|more
+#neck/neck-scale-horiz-less|more
+#neck/neck-scale-vert-more|less
+#neck/neck-trans-horiz-in|out
+#neck/neck-trans-vert-down|up
+#neck/neck-trans-depth-forward|backward
+##  }
+#
+##  { "group": "eyes",
+#eyes/r-eye-height1-min|max
+#eyes/r-eye-height2-min|max
+#eyes/r-eye-height3-min|max
+#eyes/r-eye-push1-in|out
+#eyes/r-eye-push2-in|out
+#eyes/r-eye-move-in|out
+#eyes/r-eye-move-up|down
+#eyes/r-eye-size-small|big
+#eyes/r-eye-corner1-up|down
+#eyes/r-eye-corner2-up|down
+#
+#eyes/l-eye-height1-min|max
+#eyes/l-eye-height2-min|max
+#eyes/l-eye-height3-min|max
+#eyes/l-eye-push1-in|out
+#eyes/l-eye-push2-in|out
+#eyes/l-eye-move-in|out
+#eyes/l-eye-move-up|down
+#eyes/l-eye-size-small|big
+#eyes/l-eye-corner1-up|down
+#eyes/l-eye-corner2-up|down
+##  }
+#
+##  { "group": "nose",
+#nose/nose-trans-vert-up|down
+#nose/nose-trans-depth-forward|backward
+#nose/nose-trans-horiz-in|out
+nose/nose-scale-vert-incr|decr
+nose/nose-scale-horiz-incr|decr
+#nose/nose-scale-depth-incr|decr
+#
+#nose/nose-nostril-width-min|max
+#nose/nose-point-width-less|more
+nose/nose-height-min|max
+#nose/nose-width1-min|max
+#nose/nose-width2-min|max
+#nose/nose-width3-min|max
+#
+#nose/nose-compression-compress|uncompress
+#nose/nose-curve-convex|concave
+#nose/nose-greek-moregreek|lessgreek
+#nose/nose-hump-morehump|lesshump
+#nose/nose-volume-potato|point
+#nose/nose-nostrils-angle-up|down
+#nose/nose-point-up|down
+#nose/nose-septumangle-decr|incr
+#nose/nose-flaring-decr|incr
+##  }
+#
+##  { "group": "mouth",
+mouth/mouth-scale-horiz-incr|decr
+mouth/mouth-scale-vert-incr|decr
+#mouth/mouth-scale-depth-incr|decr
+#mouth/mouth-trans-in|out
+#mouth/mouth-trans-up|down
+#mouth/mouth-trans-forward|backward
+#
+#mouth/mouth-lowerlip-height-min|max
+#mouth/mouth-lowerlip-width-min|max
+#mouth/mouth-upperlip-height-min|max
+#mouth/mouth-upperlip-width-min|max
+#mouth/mouth-cupidsbow-width-min|max
+#
+#mouth/mouth-lowerlip-ext-up|down
+#mouth/mouth-angles-up|down
+mouth/mouth-lowerlip-middle-up|down
+#mouth/mouth-lowerlip-volume-deflate|inflate
+#mouth/mouth-philtrum-volume-increase|decrease
+#mouth/mouth-upperlip-volume-deflate|inflate
+#mouth/mouth-upperlip-ext-up|down
+mouth/mouth-upperlip-middle-up|down
+#mouth/mouth-cupidsbow-decr|incr
+##  }
+#
+##  { "group": "ears",
+#ears/r-ear-trans-depth-backward|forward
+#ears/r-ear-size-big|small
+#ears/r-ear-trans-vert-down|up
+#ears/r-ear-height-min|max
+#ears/r-ear-lobe-min|max
+#ears/r-ear-shape1-pointed|triangle
+#ears/r-ear-rot-backward|forward
+#ears/r-ear-shape2-square|round
+#ears/r-ear-width-max|min
+#ears/r-ear-wing-out|in
+#ears/r-ear-flap-out|in
+#
+#ears/l-ear-trans-depth-backward|forward
+#ears/l-ear-size-big|small
+#ears/l-ear-trans-vert-down|up
+#ears/l-ear-height-min|max
+#ears/l-ear-lobe-min|max
+#ears/l-ear-shape1-pointed|triangle
+#ears/l-ear-rot-backward|forward
+#ears/l-ear-shape2-square|round
+#ears/l-ear-width-max|min
+#ears/l-ear-wing-out|in
+#ears/l-ear-flap-out|in
+##  }
+#
+##  { "group": "chin",
+#chin/chin-prominent-less|more
+#chin/chin-width-min|max
+#chin/chin-height-min|max
+#chin/chin-bones-in|out
+#chin/chin-prognathism-less|more
+##  }
+#
+##  { "group": "cheek",
+    "modifiers": [
+      {"target": "l-cheek-volume", "min": "deflate", "max": "inflate"},
+      {"target": "l-cheek-bones", "min": "in", "max": "out"},
+      {"target": "l-cheek-inner", "min": "deflate", "max": "inflate"},
+      {"target": "l-cheek-trans-vert", "min": "down", "max": "up"},
+      {"target": "r-cheek-volume", "min": "deflate", "max": "inflate"},
+      {"target": "r-cheek-bones", "min": "in", "max": "out"},
+      {"target": "r-cheek-inner", "min": "deflate", "max": "inflate"},
+      {"target": "r-cheek-trans-vert", "min": "down", "max": "up"}
+    ]
+  },
+
+##  { "group": "macrodetails",
+##macrodetails/Gender
+##macrodetails/Age
+##African", "modifierType": "EthnicModifier
+##Asian", "modifierType": "EthnicModifier
+##Caucasian", "modifierType": "EthnicModifier
+##  }
