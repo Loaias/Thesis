@@ -27,7 +27,7 @@ def create_parts_files(base_path, json):
 
 
 def save_key_points_indices(base_path, key_points):
-    path = os.path.join(base_path, "Parts")
+    path = os.path.join(base_path, "parts")
     indices = []
 
     for key_point in key_points.get_all_key_points():
