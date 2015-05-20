@@ -4,7 +4,7 @@ from PyQt4 import QtGui
 from Tool import decode_image
 
 
-class ReceiveWindow():
+class ReceiveWindow:
     def __init__(self):
         pass
 

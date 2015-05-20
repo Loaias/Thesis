@@ -1,0 +1,28 @@
+{
+  "Method": "Method Name In MakeHuman",
+  "Window": "ECWindow",
+  "CallBack": "Callback function name",
+  "Parameters": "(10, 20, 30)",
+  "Individuals": [
+    [
+      {
+        "Modifier": "eyes/l-eye-height2-min|max",
+        "Value": 1
+      },
+      {
+        "Modifier": "eyes/l-eye-move-in|out",
+        "Value": 1
+      }
+    ],
+    [
+      {
+        "Modifier": "eyes/l-eye-height2-min|max",
+        "Value": -1
+      },
+      {
+        "Modifier": "eyes/l-eye-move-in|out",
+        "Value": -1
+      }
+    ],
+  ]
+}

@@ -14,4 +14,18 @@ class BaseWindow(QtGui.QWidget):
 
     def send(self, command):
         command_string = str(command)
-        self.hm_client.udp_send(command_string)
+        self.hm_client.send_json(command_string)
+
+    def received(self, json):
+        command = eval(str(json))
+        window = None
+
+        for attr in self.__dict__:
+            attr_type = type(self.__dict__[attr])
+            attr_type = str(attr_type)
+            if command["Window"] in attr_type:
+                window = self.__dict__[attr]
+                break
+
+        method = getattr(window, command["CallBack"])
+        method(json)

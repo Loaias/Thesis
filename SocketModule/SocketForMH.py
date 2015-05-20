@@ -5,11 +5,11 @@ import struct
 import socket
 
 
-class TCPServer(QtCore.QThread):
+class Server(QtCore.QThread):
     trigger = QtCore.pyqtSignal(str)
 
     def __init__(self, address):
-        super(TCPServer, self).__init__()
+        super(Server, self).__init__()
 
         self.buff_size = 1024
         self.presentation_size = 2
@@ -29,20 +29,20 @@ class TCPServer(QtCore.QThread):
     def received_data(self, conn):
         command_length = struct.unpack('i', conn.recv(struct.calcsize('i')))[0]
         rest_length = command_length
-        json = ""
+        json = []
 
         print "正在接收json文件..."
 
         while True:
             if rest_length > self.buff_size:
-                json += conn.recv(self.buff_size)
+                json.append(conn.recv(self.buff_size))
                 rest_length -= self.buff_size
             else:
-                json += conn.recv(rest_length)
+                json.append(conn.recv(rest_length))
                 break
 
         print "json文件接收完毕"
-        self.trigger.emit(json)
+        self.trigger.emit("".join(json))
         print "文件接收完毕,正在关闭连接"
         conn.close()
         # self.receive_Sock.close()
@@ -54,12 +54,35 @@ class TCPServer(QtCore.QThread):
         self.start_listen()
 
 
-class UDPClient():
+# class Client:
+#     def __init__(self, address):
+#         self.address = address
+#         self.buff_size = 1024
+#
+#         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#
+#     def send_json(self, fitness_value):
+#         self.socket.sendto(fitness_value, self.address)
+
+
+class Client:
     def __init__(self, address):
         self.address = address
         self.buff_size = 1024
 
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    def send_json(self, json):
+        send_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        send_sock.connect(self.address)
 
-    def udp_send(self, message):
-        self.socket.sendto(message, self.address)
+        command_length = len(json)
+        package_count = (command_length + self.buff_size - 1) / self.buff_size
+        data_head = struct.pack("i", command_length)
+
+        print "开始传送数据:"
+        send_sock.send(data_head)
+        for i in xrange(package_count):
+            index = self.buff_size * i
+            send_sock.send(json[index:index + self.buff_size])
+        print "文件传送完毕，正在断开连接..."
+        send_sock.close()
+        print "连接已关闭..."

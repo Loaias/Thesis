@@ -40,7 +40,7 @@ class Window(WindowForMH, WindowForXGP):
         self.hide()
 
     def send_to_mh(self, json):
-        self.hm_client.udp_send(json)
+        self.hm_client.send_json(json)
 
     def send_to_xgp(self, json):
         pass

@@ -22,10 +22,9 @@ class UDPService(QtCore.QThread):
             self.trigger.emit(received_message)
 
 
-class UDPClient():
+class UDPClient:
     def __init__(self, address):
         self.address = address
-        self.buff_size = 1024
 
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 

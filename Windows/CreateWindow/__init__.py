@@ -3,13 +3,12 @@
 
 import os
 import numpy as np
-
 from PyQt4 import QtGui
-from Received import ReceiveWindow
 
+from Tool import Consts
+from Received import ReceiveWindow
 from Tool.CommandCreator import Command
 from Tool.enum import Method, CallBack
-from Consts import Parts, KeyPoints
 
 
 class Window(QtGui.QWidget, ReceiveWindow):
@@ -46,30 +45,46 @@ class Window(QtGui.QWidget, ReceiveWindow):
         command = {
             "Method": Method.modify_and_get_models,
             "Window": "CreateWindow",
-            "CallBack": CallBack.models_received,
-            "Short": "",
+            "CallBack": CallBack.models_for_parts_received,
+            "ShortName": "",
             "Individuals": []
         }
 
-        for part in Parts.get_all_parts():
+        for part in Consts.Parts.get_all_parts():
             command["Individuals"] = [
-                [Command.create_gene(part.long, c)] for c in sampling
+                [Command.create_gene(part.modifier, c)] for c in sampling
             ]
-            command["Short"] = part.short
+            command["ShortName"] = part.name
 
             self.parent.send_to_mh(str(command))
 
     def save_indices_of_key_points(self):
-        from CreatingFiles.Create_Files import save_key_points_indices
+        from CreatingFiles import save_key_points_indices
 
-        save_key_points_indices(self.base_path, KeyPoints)
+        save_key_points_indices(self.base_path)
 
     def send_request_for_creating_mapping_tables(self):
-        sampling = np.linspace(-1, 1, 20)
+        import cPickle
+
+        samplings = np.linspace(-1, 1, 200)
+        with open(os.path.join(self.base_path, "parts/indices"), 'r') as f:
+            indices = cPickle.load(f)
+
         command = {
-            "Method": Method.modify_and_get_models,
+            "Method": Method.modify_and_get_mappings,
             "Window": "CreateWindow",
-            "CallBack": CallBack.models_received,
-            "Short": "",
-            "Individuals": []
+            "CallBack": CallBack.models_for_mapping_received,
         }
+        self.parent.send_to_mh(str(command))
+
+        for mapping in Consts.Mappings.get_all_mapping_pair():
+            command["Parameter"] = [{"name": k.name, "index": indices[k.name]} for k in mapping.key_points]
+            command["Individuals"] = [
+                [Command.create_gene(mapping.modifier, round(c, 2))] for c in samplings
+            ]
+            command["ShortName"] = mapping.name
+
+            self.parent.send_to_mh(str(command))
+
+
+

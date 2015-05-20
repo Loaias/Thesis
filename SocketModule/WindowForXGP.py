@@ -15,6 +15,6 @@ class WindowForXGP(BaseWindow):
         # UDP Client
         self.xgp_client = UDPClient(self.address_XGP)
 
-    def received(self, data):
-        print data
-        self.plain_text_edit.setPlainText(data)
+    # def received(self, data):
+    #     print data
+    #     self.plain_text_edit.setPlainText(data)

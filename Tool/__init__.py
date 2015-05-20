@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from enum import Method, CallBack
-from Base64 import encode_image, decode_image
+from enum import *
+from Base64 import *
+from Consts import *

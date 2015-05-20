@@ -1,12 +1,105 @@
-# -*- coding: utf8 -*-
+# # -*- coding: utf8 -*-
+#
+# import cPickle as pickle
+# import os
+# import numpy as np
+#
+# base_path = os.getcwd()
+# base_path = os.path.join(base_path, "ConfigFiles")
 
-import cPickle as pickle
+
+# -*- coding: utf-8 -*-
+
 import os
+import time
+import cPickle
 import numpy as np
 
-base_path = os.getcwd()
-base_path = os.path.join(base_path, "ConfigFiles")
+from tools import search_single_file
+from Tool import Consts
 
+
+def create_parts_files(base_path, json):
+    return_data = eval(str(json))
+    models_list = return_data["ReturnData"]
+    models = np.array(models_list)
+    file_name = os.path.join(base_path, "parts", "%s.npy" % return_data["ShortName"])
+    points = []
+
+    for index, (x, y, z) in enumerate(models[0]):
+        diff = True
+        for (x0, y0, z0) in models[1:, index, :]:
+            if (x, y, z) == (x0, y0, z0):
+                diff = False
+                break
+        if diff:
+            points.append([index, x, y, z])
+
+    np.save(file_name, points)
+    print "%s was saved." % file_name
+
+
+def save_key_points_indices(base_path):
+    path = os.path.join(base_path, "parts")
+    indices = {}
+
+    for key_point in Consts.KeyPoints.get_all_key_points():
+        f = search_single_file(key_point.parts_name, path)
+        raw_data = np.load(os.path.join(path, f))
+        sorted_data = sorted(raw_data, key=lambda c: (c[key_point.coord] - key_point.coord_value) ** 2)
+        indices[key_point.name] = int(sorted_data[0][0])
+
+    with open(os.path.join(path, "indices"), 'w') as f:
+        cPickle.dump(indices, f)
+
+    print "key points indices file were created."
+
+
+def create_mapping_files(base_path, json):
+    return_dictionary = eval(str(json))
+    feature_name = return_dictionary["ShortName"]
+
+    return_data = return_dictionary["ReturnData"]
+
+    file_name = "%s.npy" % feature_name
+    mapping = Consts.Mappings.get_mapping_by_name(feature_name)
+    mapping_table = []
+
+    for data in return_data:
+        genotype = data["Parameter"]
+        key_points = data["KeyPoints"]
+        phenotype = mapping.get_value(key_points)
+
+        mapping_table.append((genotype, phenotype))
+
+    np.save(os.path.join(base_path, "mapping", file_name), mapping_table)
+    print "Saving complete: %s" % file_name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#*******************************************************************************************
 
 def create_files():
     import get_indices
