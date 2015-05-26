@@ -14,17 +14,3 @@ class WindowForMH(BaseWindow):
         self.hm_server.start()
         # UDP Client
         self.hm_client = Client(self.address_MH)
-
-    # def received(self, json):
-    #     command = eval(str(json))
-    #     window = None
-    #
-    #     for attr in self.__dict__:
-    #         attr_type = type(self.__dict__[attr])
-    #         attr_type = str(attr_type)
-    #         if command["Window"] in attr_type:
-    #             window = self.__dict__[attr]
-    #             break
-    #
-    #     method = getattr(window, command["CallBack"])
-    #     method(json)

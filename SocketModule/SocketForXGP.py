@@ -5,7 +5,7 @@ import socket
 
 
 class UDPService(QtCore.QThread):
-    trigger = QtCore.pyqtSignal(str)
+    trigger = QtCore.pyqtSignal(str, str)
 
     def __init__(self, address):
         super(UDPService, self).__init__()
@@ -16,17 +16,13 @@ class UDPService(QtCore.QThread):
     def run(self):
         while True:
             received_message, address = self.socket.recvfrom(1024)
-            print "received_message->   ", received_message
-            print "address->    ", address
-
-            self.trigger.emit(received_message)
+            self.trigger.emit(received_message, address[0])
 
 
 class UDPClient:
     def __init__(self, address):
         self.address = address
-
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    def udp_send(self, fitness_value):
+    def send_fitness(self, fitness_value):
         self.socket.sendto(fitness_value, self.address)

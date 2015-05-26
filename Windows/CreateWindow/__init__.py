@@ -8,7 +8,7 @@ from PyQt4 import QtGui
 from Tool import Consts
 from Received import ReceiveWindow
 from Tool.CommandCreator import Command
-from Tool.enum import Method, CallBack
+from Tool.enum import Windows, Method, CallBack
 
 
 class Window(QtGui.QWidget, ReceiveWindow):
@@ -44,7 +44,7 @@ class Window(QtGui.QWidget, ReceiveWindow):
         sampling = (-0.1, -0.05, 0, 0.05, 0.1)
         command = {
             "Method": Method.modify_and_get_models,
-            "Window": "CreateWindow",
+            "Window": Windows.create_window,
             "CallBack": CallBack.models_for_parts_received,
             "ShortName": "",
             "Individuals": []
@@ -52,7 +52,7 @@ class Window(QtGui.QWidget, ReceiveWindow):
 
         for part in Consts.Parts.get_all_parts():
             command["Individuals"] = [
-                [Command.create_gene(part.modifier, c)] for c in sampling
+                [Command.create_modifier(part.modifier, c)] for c in sampling
             ]
             command["ShortName"] = part.name
 
@@ -80,7 +80,7 @@ class Window(QtGui.QWidget, ReceiveWindow):
         for mapping in Consts.Mappings.get_all_mapping_pair():
             command["Parameter"] = [{"name": k.name, "index": indices[k.name]} for k in mapping.key_points]
             command["Individuals"] = [
-                [Command.create_gene(mapping.modifier, round(c, 2))] for c in samplings
+                [Command.create_modifier(mapping.modifier, round(c, 2))] for c in samplings
             ]
             command["ShortName"] = mapping.name
 

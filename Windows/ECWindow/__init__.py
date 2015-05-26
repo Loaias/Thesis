@@ -1,17 +1,20 @@
 # -*- coding: utf8 -*-
 
 from PyQt4 import QtGui
-from Received import ReceiveWindow
-from Tool.enum import Method, CallBack
+from Received import ReceivedClass
+from Process import ProcessClass
+from MyWidgets import ImageBox
+from Tool.enum import Windows, Method, CallBack
 
 
-class Window(QtGui.QWidget, ReceiveWindow):
+class Window(QtGui.QWidget, ReceivedClass, ProcessClass):
     def __init__(self, parent):
         super(Window, self).__init__()
 
         self.parent = parent
 
-        self.image_labels = []
+        self.presentation = 4
+        self.image_labels = [ImageBox(c) for c in xrange(self.presentation)]
         self.plain_text_edit = None
         self.send_button = None
 
@@ -20,15 +23,11 @@ class Window(QtGui.QWidget, ReceiveWindow):
     def init_ui(self):
         v_box = QtGui.QVBoxLayout(self)
 
-        h_box = QtGui.QHBoxLayout()
-        v_box.addLayout(h_box)
+        grid = QtGui.QGridLayout()
+        v_box.addLayout(grid)
 
-        image = QtGui.QLabel(self)
-        self.image_labels.append(image)
-        h_box.addWidget(image)
-        image = QtGui.QLabel(self)
-        self.image_labels.append(image)
-        h_box.addWidget(image)
+        for index, image in enumerate(self.image_labels):
+            grid.addWidget(image, index / (self.presentation / 2), index % (self.presentation / 2))
 
         self.plain_text_edit = QtGui.QPlainTextEdit()
         v_box.addWidget(self.plain_text_edit)
@@ -51,7 +50,7 @@ class Window(QtGui.QWidget, ReceiveWindow):
 
         command = {
             "Method": Method.modify_and_get_images,
-            "Window": "ECWindow",
+            "Window":  Windows.ec_window,
             "CallBack": CallBack.render_image,
             "Parameters": (10, 20, 30),
             "Individuals": [

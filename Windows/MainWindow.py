@@ -43,4 +43,4 @@ class Window(WindowForMH, WindowForXGP):
         self.hm_client.send_json(json)
 
     def send_to_xgp(self, json):
-        pass
+        self.xgp_client.send_fitness(json)

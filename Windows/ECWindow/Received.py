@@ -4,7 +4,7 @@ from PyQt4 import QtGui
 from Tool import decode_image
 
 
-class ReceiveWindow:
+class ReceivedClass:
     def __init__(self):
         pass
 
@@ -19,3 +19,6 @@ class ReceiveWindow:
 
     def points_received(self, json):
         self.plain_text_edit.setPlainText(json)
+
+    def individuals_received_from_xgp(self, tuple_individuals):
+        self.individuals_received_and_send_for_show(tuple_individuals)

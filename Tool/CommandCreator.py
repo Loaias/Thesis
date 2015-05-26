@@ -13,8 +13,19 @@ class Command:
         self.set_parameters(parameters)
 
     @staticmethod
-    def create_gene(name, value):
+    def create_modifier(name, value):
         return {"Modifier": name, "Value": value}
+
+    @staticmethod
+    def create_modifiers_for_eye_width(values):
+        return [
+            {"Modifier": "eyes/l-eye-push1-in|out", "Value": values[0]},
+            {"Modifier": "eyes/r-eye-push1-in|out", "Value": values[0]},
+            {"Modifier": "eyes/l-eye-push2-in|out", "Value": values[1]},
+            {"Modifier": "eyes/r-eye-push2-in|out", "Value": values[1]},
+            {"Modifier": "eyes/l-eye-size-small|big", "Value": values[2]},
+            {"Modifier": "eyes/r-eye-size-small|big", "Value": values[2]}
+        ]
 
     def set_method(self, method):
         self.cmd["Method"] = method
