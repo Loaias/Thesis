@@ -46,17 +46,20 @@ class Window(QtGui.QWidget, ReceiveWindow):
             "Method": Method.modify_and_get_models,
             "Window": Windows.create_window,
             "CallBack": CallBack.models_for_parts_received,
-            "ShortName": "",
-            "Individuals": []
+            "Parts": []
         }
 
         for part in Consts.Parts.get_all_parts():
-            command["Individuals"] = [
-                [Command.create_modifier(part.modifier, c)] for c in sampling
-            ]
-            command["ShortName"] = part.name
+            command["Parts"].append(
+                {
+                    "Individuals": [
+                        [Command.create_modifier(part.modifier, c)] for c in sampling
+                    ],
+                    "ShortName": part.name
+                }
+            )
 
-            self.parent.send_to_mh(str(command))
+        self.parent.send_to_mh(str(command))
 
     def save_indices_of_key_points(self):
         from CreatingFiles import save_key_points_indices

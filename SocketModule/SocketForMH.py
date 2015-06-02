@@ -27,8 +27,6 @@ class Server(QtCore.QThread):
         rest_length = command_length
         json = []
 
-        print "正在接收json文件..."
-
         while True:
             if rest_length > self.buff_size:
                 json.append(conn.recv(self.buff_size))
@@ -37,12 +35,8 @@ class Server(QtCore.QThread):
                 json.append(conn.recv(rest_length))
                 break
 
-        print "json文件接收完毕"
         self.trigger.emit("".join(json))
-        print "文件接收完毕,正在关闭连接"
         conn.close()
-        # self.receive_Sock.close()
-        print "连接已关闭..."
 
         self.start_listen()
 
@@ -63,11 +57,8 @@ class Client:
         package_count = (command_length + self.buff_size - 1) / self.buff_size
         data_head = struct.pack("i", command_length)
 
-        print "start sending data:"
         send_sock.send(data_head)
         for i in xrange(package_count):
             index = self.buff_size * i
             send_sock.send(json[index:index + self.buff_size])
-        print "Sending completed,closing connecting..."
         send_sock.close()
-        print "Connecting closed..."

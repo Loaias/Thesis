@@ -3,27 +3,42 @@
 import numpy as np
 import os
 
-from tools import search_single_file
+from Tool import search_single_file
 
 
 def create_parts_files(base_path, json):
-    return_data = eval(str(json))
-    models_list = return_data["ReturnData"]
-    models = np.array(models_list)
-    file_name = os.path.join(base_path, "parts", "%s.npy" % return_data["Short"])
-    points = []
+    try:
+        print "start"
+        a = 1/0
+        print a
+    except:
+        print "aaa"
 
-    for index, (x, y, z) in enumerate(models[0]):
-        diff = True
-        for (x0, y0, z0) in models[1:, index, :]:
-            if (x, y, z) == (x0, y0, z0):
-                diff = False
-                break
-        if diff:
-            points.append([index, x, y, z])
-
-    np.save(file_name, points)
-    print "%s was saved." % file_name
+    try:
+        return_data = eval(json)
+        points = return_data["ReturnData"]
+        file_name = os.path.join(base_path, "parts", "%s.npy" % return_data["Short"])
+        np.save(file_name, points)
+        print "%s was saved." % file_name
+    except:
+        raw_input()
+    # return_data = eval(str(json))
+    # models_list = return_data["ReturnData"]
+    # models = np.array(models_list)
+    # file_name = os.path.join(base_path, "parts", "%s.npy" % return_data["Short"])
+    # points = []
+    #
+    # for index, (x, y, z) in enumerate(models[0]):
+    #     diff = True
+    #     for (x0, y0, z0) in models[1:, index, :]:
+    #         if (x, y, z) == (x0, y0, z0):
+    #             diff = False
+    #             break
+    #     if diff:
+    #         points.append([index, x, y, z])
+    #
+    # np.save(file_name, points)
+    # print "%s was saved." % file_name
 
 
 def save_key_points_indices(base_path, key_points):
