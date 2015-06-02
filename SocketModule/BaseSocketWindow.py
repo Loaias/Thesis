@@ -10,17 +10,18 @@ class BaseWindow(QtGui.QWidget):
 
         self.address_MH = ("127.0.0.1", 6000)
         self.address_receive_MH = ("127.0.0.1", 6001)
-        self.address_receive_XGP = ("172.20.71.28", 6002)
-        self.address_XGP = ("172.20.71.39", 6003)
+        self.address_receive_XGP = ("127.0.0.1", 3001)
+        self.address_XGP = ("127.0.0.1", 3002)
 
-    def received(self, message, address):
+    def received(self, message):
         json = eval(str(message))
         window = None
         window_type = Windows.ec_window
         window_method = CallBack.individuals_received_from_xgp
 
-        if "127.0.0.1" == address:
+        if "Window" in json:
             window_type = json["Window"]
+        if "CallBack" in json:
             window_method = json["CallBack"]
 
         for attr in self.__dict__:

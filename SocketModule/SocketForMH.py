@@ -6,7 +6,7 @@ import socket
 
 
 class Server(QtCore.QThread):
-    trigger = QtCore.pyqtSignal(str, str)
+    trigger = QtCore.pyqtSignal(str)
 
     def __init__(self, address):
         super(Server, self).__init__()
@@ -38,7 +38,7 @@ class Server(QtCore.QThread):
                 break
 
         print "json文件接收完毕"
-        self.trigger.emit("".join(json), address[0])
+        self.trigger.emit("".join(json))
         print "文件接收完毕,正在关闭连接"
         conn.close()
         # self.receive_Sock.close()
@@ -63,11 +63,11 @@ class Client:
         package_count = (command_length + self.buff_size - 1) / self.buff_size
         data_head = struct.pack("i", command_length)
 
-        print "开始传送数据:"
+        print "start sending data:"
         send_sock.send(data_head)
         for i in xrange(package_count):
             index = self.buff_size * i
             send_sock.send(json[index:index + self.buff_size])
-        print "文件传送完毕，正在断开连接..."
+        print "Sending completed,closing connecting..."
         send_sock.close()
-        print "连接已关闭..."
+        print "Connecting closed..."

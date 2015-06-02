@@ -24,11 +24,12 @@ class ProcessClass:
             "Window":  Windows.ec_window,
             "CallBack": CallBack.render_image,
             "Individuals": [
-                Command.create_modifiers_for_eye_width(individual / 10) for individual in presentation
+                Command.create_modifiers_for_eye_width(individual) for individual in presentation
             ]
         }
 
         command = str(command)
+        print command
         self.parent.send_to_mh(command)
 
 

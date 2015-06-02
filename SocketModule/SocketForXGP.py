@@ -5,7 +5,7 @@ import socket
 
 
 class UDPService(QtCore.QThread):
-    trigger = QtCore.pyqtSignal(str, str)
+    trigger = QtCore.pyqtSignal(str)
 
     def __init__(self, address):
         super(UDPService, self).__init__()
@@ -16,7 +16,7 @@ class UDPService(QtCore.QThread):
     def run(self):
         while True:
             received_message, address = self.socket.recvfrom(1024)
-            self.trigger.emit(received_message, address[0])
+            self.trigger.emit(received_message)
 
 
 class UDPClient:

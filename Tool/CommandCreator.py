@@ -19,12 +19,12 @@ class Command:
     @staticmethod
     def create_modifiers_for_eye_width(values):
         return [
-            {"Modifier": "eyes/l-eye-push1-in|out", "Value": values[0]},
-            {"Modifier": "eyes/r-eye-push1-in|out", "Value": values[0]},
-            {"Modifier": "eyes/l-eye-push2-in|out", "Value": values[1]},
-            {"Modifier": "eyes/r-eye-push2-in|out", "Value": values[1]},
-            {"Modifier": "eyes/l-eye-size-small|big", "Value": values[2]},
-            {"Modifier": "eyes/r-eye-size-small|big", "Value": values[2]}
+            {"Modifier": "eyes/l-eye-push1-in|out", "Value": round(values[0]/10., 2)},
+            {"Modifier": "eyes/r-eye-push1-in|out", "Value": round(values[0]/10., 2)},
+            {"Modifier": "eyes/l-eye-push2-in|out", "Value": round(values[1]/10., 2)},
+            {"Modifier": "eyes/r-eye-push2-in|out", "Value": round(values[1]/10., 2)},
+            {"Modifier": "eyes/l-eye-size-small|big", "Value": round(values[2]/10., 2)},
+            {"Modifier": "eyes/r-eye-size-small|big", "Value": round(values[2]/10., 2)}
         ]
 
     def set_method(self, method):
